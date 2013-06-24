@@ -1,0 +1,112 @@
+html,body,h1,h2,h3,h4,h5,h6,p,ul,li,a,span{padding: 0; margin: 0; border: 0}
+ul{list-style: none}
+a{text-decoration: none}
+a img{border: 0}
+
+body{
+    font: 14px/24px Helvetica, Arial, sans-serif;
+    background: #191919;
+}
+
+#mbox{
+    width: 320px;
+    margin: 0 auto;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    background: #2a1c29;
+}
+
+img{
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+#song-name{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+#control{
+    height: 44px;
+    line-height: 44px;
+    letter-spacing: 0;
+    word-spacing: 0;
+    font-size: 0;
+}
+
+#control a,
+#control span{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#control a{
+    color: #fff;
+    width: 44px;
+    background-color: #a64439;
+    background-image: url(img/play.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#control a:hover,
+#control a:active{
+    background-color: #ca8828;
+}
+
+#control a.pause{
+    background-image: url(img/pause.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#duration{
+    text-align: right;
+    width: 246px;
+    line-height: 12px;
+    font-size: 12px;
+    color: #878787;
+    position: relative;
+    top: -2px;
+}
+
+#duration em{
+    display: block;
+    height: 1px;
+    width: 23450px;
+    max-width: 246px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: #878787;
+}
+
+#songslist{
+    margin: 15px 0 0;
+}
+
+#songslist li a{
+    display: block;
+    color: #fff;
+    padding: 5px 20px;
+}
+
+#songslist li a:hover,
+#songslist li a:active{
+    color: #ca8828;
+}
+
+@media only screen and (min-width: 320px){
+
+body{
+    background: #2a1c29;
+}
+
+#mbox{
+    margin: 40px auto 0;
+    padding-top: 60px;
+}
+
+}
