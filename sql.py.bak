@@ -1,0 +1,35 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from sqlalchemy import *
+
+metadata = MetaData('sqlite:///db/songs.sqlite3')
+
+songslist_table = Table(
+    'songslist', metadata,
+    Column('lid', Integer, primary_key=True),
+    Column('name', String(20), nullable=False)
+)
+
+songs_table = Table(
+    'songs', metadata,
+    Column('sid', Integer, primary_key=True),
+    Column('name', String(100), nullable=False),
+    Column('mp3url', String(100), nullable=False),
+    Column('imageurl', String(100)),
+    Column('order', Integer, default=9999),
+    Column('lid', None, ForeignKey('songslist.lid'))
+)
+
+metadata.create_all();
+
+# Initialize demo data
+stmt = songslist_table.insert()
+stmt.execute(name="Default List")
+
+stmt = songs_table.insert()
+stmt.execute([
+    dict(name="Song 1", mp3url="1.mp3", imageurl="1.jpg", order=0, lid=1),
+    dict(name="Song 2", mp3url="2.mp3", imageurl="2.jpg", order=1, lid=1),
+    dict(name="Song 3", mp3url="3.mp3", imageurl="3.jpg", order=2, lid=1),
+])
