@@ -1,0 +1,4 @@
+- #song-image img's remove/add issues
+- send play/pause/stop signal to backend mplayer
+- add songslist
+- add song
