@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os.path
+import sqlalchemy
 import tornado.web
 import tornado.httpserver
 import tornado.ioloop
