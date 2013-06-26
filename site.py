@@ -69,10 +69,8 @@ class BaseHandler(tornado.web.RequestHandler):
 
 
 class MPlayerHandler(BaseHandler):
-    def createMPlayer(self, filepath):
-        mplayer = MPlayer()
-        mplayer.command('loadfile '+filepath)
-        return mplayer
+    def createMPlayer(self):
+        return MPlayer()
 
 
 class MainHandler(BaseHandler):
@@ -97,7 +95,8 @@ class PlayNewHandler(MPlayerHandler):
 
         song = self.db.query(Songs).filter(Songs.sid==sid).one()
         mp3url = options.mp3path + song.mp3url
-        mplayer = self.createMPlayer(mp3url)
+        mplayer = self.createMPlayer()
+        mplayer.command('loadfile '+mp3url)
         options.mpSocket = mplayer
 
         #self.write(str(options.mpSocket._mplayer.pid))
