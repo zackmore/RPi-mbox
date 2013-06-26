@@ -3,6 +3,7 @@ $(function(){
     var app = {
         songslist: '',
         playing: false,
+        pid: '',
 
         getListId: function(){
             var url = window.location.href;
@@ -24,6 +25,7 @@ $(function(){
         JSONtoHTML: function(songsObj){
             if(songsObj.length){
                 this.songslist = songsObj;
+                console.log(this.songslist);
                 // test code
                 this.HTMLBlock.songsList(songsObj);
                 this.playASong(songsObj[0]);
@@ -46,14 +48,14 @@ $(function(){
                 }
             },
             songImage: function(songObj){
-                $('#song-image img').animate({'opacity': 0}, 400, function(){
-                    this.remove();
-                });
-
-                $('<img>').attr({'src': '/static/mp3/images/'+songObj.imageurl, 'alt': songObj.name})
-                .css({'opacity': 0})
-                .appendTo($('#song-image'))
-                .animate({'opacity': 1}, 500);
+                $('#song-image img').animate({'opacity': 0}, 400, 'ease-out',
+                    function(){
+                        $(this).attr(
+                            {'src': '/static/mp3/images/'+songObj.imageurl,
+                            'alt': songObj.name})
+                        .animate({'opacity': 1}, 400, 'ease-in');
+                    }
+                );
             },
             songInfo: function(songObj){
                 $('#song-name').html(songObj.name);
@@ -61,10 +63,34 @@ $(function(){
         },
 
         playASong: function(songObj){
+            app.playing = true;
             // todo: send a stop command to mplayer
+            $.ajax({
+                type: 'post',
+                url: '/playnew',
+                data: {
+                    sid: songObj.sid,
+                    pid: app.pid ? app.pid : ''
+                },
+                success: function(data){
+                    app.pid = data;
+                    console.log(app.pid);
+                }
+            });
             this.HTMLBlock.songImage(songObj);
             this.HTMLBlock.songInfo(songObj);
             // todo: send a play command to mplayer
+        },
+
+        playAndPause: function(){
+            $.ajax({
+                type: 'post',
+                url: '/playnew/control',
+                success: function(data){
+                    app.pid = data;
+                    console.log(app.pid);
+                }
+            });
         },
 
         init: function(){
@@ -78,6 +104,7 @@ $(function(){
     $('#control a').click(function(e){
         e.preventDefault();
         $(this).toggleClass('pause');
+        app.playAndPause();
     });
 
     // songslist click and play
