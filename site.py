@@ -25,7 +25,7 @@ define('mpSocket', type=object)
 class MPlayer:
     '''
     A simple mplayer class to interactive mplayer
-    command requires: parse, stop, loadfile and so on.
+    command requires: pause, stop, loadfile and so on.
     '''
     def __init__(self):
         self._mplayer = subprocess.Popen(
