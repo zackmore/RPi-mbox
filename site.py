@@ -20,8 +20,6 @@ define('mp3path', default=os.path.join(os.path.dirname(__file__), 'static/mp3/')
 define('mpSocket', type=object)
 
 
-
-
 class MPlayer:
     '''
     A simple mplayer class to interactive mplayer
@@ -50,7 +48,9 @@ class Application(tornado.web.Application):
             (r'/', MainHandler),
             (r'/list/(\d+)', ListHandler),
             (r'/playnew', PlayNewHandler),
-            (r'/playnew/control', ControlHanlder),
+            (r'/playnew/control', ControlHandler),
+            (r'/kill', KillHandler),
+            (r'/test', TestHandler),
         ]
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), 'templates'),
@@ -95,18 +95,27 @@ class PlayNewHandler(MPlayerHandler):
 
         song = self.db.query(Songs).filter(Songs.sid==sid).one()
         mp3url = options.mp3path + song.mp3url
-        mplayer = self.createMPlayer()
-        mplayer.command('loadfile '+mp3url)
-        options.mpSocket = mplayer
+        if not options.mpSocket:
+            options.mpSocket = self.createMPlayer()
+            #self.write(str(options.mpSocket._mplayer.pid))
+        options.mpSocket.command('loadfile '+mp3url)
 
-        #self.write(str(options.mpSocket._mplayer.pid))
 
-
-class ControlHanlder(BaseHandler):
+class ControlHandler(BaseHandler):
     def post(self):
         options.mpSocket.command('pause')
-        #self.write(str(options.mpSocket._mplayer.pid))
 
+
+class KillHandler(BaseHandler):
+    def post(self):
+        options.mpSocket.command('stop')
+        options.mpSocket.command('exit')
+        options.mpSocket._mplayer.terminate()
+
+
+class TestHandler(BaseHandler):
+    def get(self):
+        pass
 
 
 if __name__ == '__main__':

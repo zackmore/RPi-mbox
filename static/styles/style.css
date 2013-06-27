@@ -8,6 +8,41 @@ body{
     background: #2a1c29;
 }
 
+#topbar{
+    background: #000;
+    height: 44px;
+    line-height: 44px;
+}
+
+#topbar p{
+    width: 300px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+#topbar p:after{
+    content: '';
+    display: block;
+    font-size: 0;
+    height: 0;
+    clear: both;
+}
+
+#topbar a{
+    display: block;
+    height: 44px;
+    color: #fff;
+}
+
+#newlist,
+#newsong{
+    float: left;
+}
+
+#stop{
+    float: right;
+}
+
 #mbox{
     width: 320px;
     margin: 0 auto;
@@ -102,6 +137,11 @@ img{
 
 body{
     background: #191919;
+}
+
+#topbar p{
+    width: 320px;
+    padding: 0;
 }
 
 #mbox{

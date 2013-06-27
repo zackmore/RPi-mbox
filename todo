@@ -1,6 +1,6 @@
 - [DONE] #song-image img's remove/add issues
 - [DONE] send play/pause/stop signal to backend mplayer
-- when playing, play a new song
+- [DONE] when playing, play a new song
 - close web page to kill the backend mplayer process
 - read play status from backend mplayer
 - add songslist

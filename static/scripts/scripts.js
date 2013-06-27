@@ -64,7 +64,6 @@ $(function(){
 
         playASong: function(songObj){
             app.playing = true;
-            // todo: send a stop command to mplayer
             $.ajax({
                 type: 'post',
                 url: '/playnew',
@@ -79,7 +78,6 @@ $(function(){
             });
             this.HTMLBlock.songImage(songObj);
             this.HTMLBlock.songInfo(songObj);
-            // todo: send a play command to mplayer
         },
 
         playAndPause: function(){
@@ -89,6 +87,16 @@ $(function(){
                 success: function(data){
                     app.pid = data;
                     console.log(app.pid);
+                }
+            });
+        },
+
+        Stop: function(){
+            $.ajax({
+                type: 'post',
+                url: '/playnew/control',
+                success: function(data){
+                    //
                 }
             });
         },
@@ -110,7 +118,15 @@ $(function(){
     // songslist click and play
     $('#songslist a').live('click', function(e){
         e.preventDefault();
+        $('#control a').attr('class', 'pause');
         var songindex = $(this).data('index');
         app.playASong(app.songslist[songindex]);
     });
+
+    // stop
+    $('#stop').click(function(e){
+        e.preventDefault();
+        app.Stop();
+    });
+
 });
