@@ -20,6 +20,9 @@ define('mp3path', default=os.path.join(os.path.dirname(__file__), 'static/mp3/')
 define('mpSocket', type=object)
 
 
+###
+### Functional Class
+###
 class MPlayer:
     '''
     A simple mplayer class to interactive mplayer
@@ -30,7 +33,7 @@ class MPlayer:
                             ['mplayer', '-slave', '-quiet', '-idle'],
                             stdin=subprocess.PIPE, stdout=subprocess.PIPE
                         )
-        self.pid = self._mplayer.pid
+        self._pid = self._mplayer.pid
 
     def command(self, name, *args):
         cmd = '%s%s%s\n'%(name,
@@ -42,6 +45,9 @@ class MPlayer:
             return
 
 
+###
+### App Base
+###
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
@@ -50,6 +56,7 @@ class Application(tornado.web.Application):
             (r'/playnew', PlayNewHandler),
             (r'/playnew/control', ControlHandler),
             (r'/kill', KillHandler),
+            (r'/addnewsong', AddNewSongHandler),
             (r'/test', TestHandler),
         ]
         settings = dict(
@@ -73,6 +80,9 @@ class MPlayerHandler(BaseHandler):
         return MPlayer()
 
 
+###
+### App Handler
+###
 class MainHandler(BaseHandler):
     def get(self):
         self.render('index.html')
@@ -113,11 +123,26 @@ class KillHandler(BaseHandler):
         options.mpSocket._mplayer.terminate()
 
 
+class AddNewSongHandler(BaseHandler):
+    def post(self):
+        song = dict(zip(['name', 'mp3url', 'imageurl', 'lid'],
+                    [self.get_argument('name'), self.get_argument('url'),
+                    self.get_argument('image'), self.get_argument('list')
+                    ]))
+        #song = Songs(**song)
+        #self.db.add(song)
+        #self.db.flush()
+        self.write(json.dumps(song))
+
+
 class TestHandler(BaseHandler):
     def get(self):
         pass
 
 
+###
+### run
+###
 if __name__ == '__main__':
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())

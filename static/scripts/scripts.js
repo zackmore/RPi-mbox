@@ -28,7 +28,7 @@ $(function(){
                 console.log(this.songslist);
                 // test code
                 this.HTMLBlock.songsList(songsObj);
-                this.playASong(songsObj[0]);
+                //this.playASong(songsObj[0]);
             }else{
                 $('#song-name').html('Erro occurs, please try again later.');
             }
@@ -101,6 +101,9 @@ $(function(){
             });
         },
 
+        addNewSong: function(){
+        },
+
         init: function(){
             this.getJSON(this.getListId());
         }
@@ -127,6 +130,33 @@ $(function(){
     $('#stop').click(function(e){
         e.preventDefault();
         app.Stop();
+    });
+
+    // add new song
+    // open
+    $('#newsong').click(function(e){
+        e.preventDefault();
+        $('#mask').addClass('show');
+    });
+    // submit
+    $('#addnewsong input[type="submit"]').click(function(e){
+        e.preventDefault();
+        var form = $(this).parents('form');
+        var postdata = form.serializeArray();
+        console.log(postdata);
+        $.ajax({
+            type: 'post',
+            url: '/addnewsong',
+            data: postdata,
+            success: function(data){
+                console.log(data);
+            }
+        });
+    });
+    // close
+    $('#closemask').click(function(e){
+        e.preventDefault();
+        $('#mask').removeClass('show');
     });
 
 });

@@ -11,7 +11,7 @@
 <body>
     <div id="topbar">
         <p>
-            <a href="#" id="newlist">New List</a>
+            <a href="#" id="viewsongslist">Songs List</a>
             <a href="#" id="newsong">New Song</a>
             <a href="#" id="stop">Stop</a>
         </p>
@@ -28,6 +28,28 @@
         <ul id="songslist">
             <!--<li><a href="#">01.Songs created by mark</a></li>-->
         </ul>
+    </div>
+    <div id="mask">
+        <div class="inner">
+            <div id="addnewsong">
+                <h2>Add a New Song</h2>
+                <form>
+                    <label for="name">Song Name</label>
+                    <input type="text" id="name" name="name">
+                    <label for="url">URL</label>
+                    <input type="text" id="url" name="url">
+                    <label for="image">Image URL</label>
+                    <input type="text" id="image" name="image">
+                    <label for="list">Belongs to</label>
+                    <select id="list" name="list">
+                        <option value="1">Default List</option>
+                        <option value="">2</option>
+                    </select>
+                    <input type="submit" value="submit">
+                </form>
+            </div>
+            <a href="#" id="closemask">Close</a>
+        </div>
     </div>
 </body>
 </html>

@@ -5,7 +5,96 @@ a img{border: 0}
 
 body{
     font: 14px/24px Helvetica, Arial, sans-serif;
-    background: #2a1c29;
+    background: #191919;
+}
+
+#mask{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    display: none;
+}
+
+#mask.show{
+    display: block;
+}
+
+#mask .inner{
+    min-height: 50%;
+    margin: 44px 0 0;
+    padding: 40px 0;
+    background: #333;
+    position: relative;
+    color: #fff;
+}
+
+#mask .inner > div{
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#mask form h2{
+    font: 20px/48px Times, serif;
+}
+
+#mask form label{
+    display: block;
+    margin: 20px 0 0;
+}
+
+#mask form input[type="text"]{
+    border: 0;
+    width: 96%;
+    padding: 0 2%;
+    height: 38px;
+    line-height: 38px;
+    background: #111;
+    color: #fff;
+}
+
+#mask form select{
+    width: 80%;
+    height: 38px;
+    line-height: 38px;
+    background: #111;
+    color: #fff;
+    border: 1px solid #111;
+}
+
+#mask form select option{
+    color: #000;
+}
+
+#mask form input[type="submit"]{
+    height: 38px;
+    line-height: 38px;
+    background: #a64439;
+    color: #fff;
+    border: 0;
+    text-transform: uppercase;
+    display: block;
+    padding: 0 10px;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+#mask form input[type="submit"]:active{
+    background: #ca8828;
+}
+
+#closemask{
+    display: block;
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #fff;
 }
 
 #topbar{
@@ -34,9 +123,10 @@ body{
     color: #fff;
 }
 
-#newlist,
+#viewsongslist,
 #newsong{
     float: left;
+    margin-right: 20px;
 }
 
 #stop{
@@ -148,5 +238,23 @@ body{
     margin: 40px auto 0;
     padding-top: 60px;
 }
+
+#mask .inner{
+    margin-top: 84px;
+}
+
+#mask .inner > div{
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+#mask form input[type="text"]{
+    width: 70%;
+}
+
+#mask form select{
+    width: 50%;
+}
+
 
 }
